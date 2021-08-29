@@ -1,0 +1,27 @@
+{
+  "name": "ashleemboyer-discord-bot",
+  "version": "0.1.0",
+  "description": "Ashlee M Boyer's personal Discord bot.",
+  "main": "index.js",
+  "author": "Ashlee M Boyer <hello@ashleemboyer.com> (https://ashleemboyer.com)",
+  "license": "MIT",
+  "engines": {
+    "node": "16",
+    "npm": "7"
+  },
+  "scripts": {
+    "start": "node ."
+  },
+  "dependencies": {
+    "@discordjs/builders": "^0.6.0",
+    "@discordjs/rest": "^0.1.0-canary.0",
+    "discord-api-types": "^0.22.0",
+    "discord.js": "^13.1.0",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "moment": "^2.29.1"
+  },
+  "devDependencies": {
+    "prettier": "^2.3.2"
+  }
+}

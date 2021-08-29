@@ -1,0 +1,10 @@
+app = "little-dust-7376"
+
+kill_signal = "SIGINT"
+kill_timeout = 5
+
+[build]
+  builtin = "node"
+
+[env]
+  NODE_ENV = "production"
