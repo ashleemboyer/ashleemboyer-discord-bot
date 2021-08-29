@@ -1,4 +1,4 @@
-app = "little-dust-7376"
+app = "ashleemboyer-discord-bot"
 
 kill_signal = "SIGINT"
 kill_timeout = 5

@@ -6,40 +6,26 @@ const token = process.env.DISCORD_TOKEN;
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
+console.log('Setting up command handling');
 client.commands = new Collection();
 const commandFiles = fs.readdirSync('./commands').filter((file) => file.endsWith('.js'));
 for (const file of commandFiles) {
   const command = require(`./commands/${file}`);
   client.commands.set(command.data.name, command);
 }
+console.log('Done setting up command handling!');
 
-console.log('logging in client');
+console.log('Setting up event handling');
+const eventFiles = fs.readdirSync('./events').filter((file) => file.endsWith('.js'));
+for (const file of eventFiles) {
+  const event = require(`./events/${file}`);
+  if (event.once) {
+    client.once(event.name, (...args) => event.execute(...args));
+  } else {
+    client.on(event.name, (...args) => event.execute(...args));
+  }
+}
+console.log('Done setting up event handling!');
+
+console.log('Logging in client');
 client.login(token);
-
-client.on('ready', () => {
-  console.log('client successfully logged in');
-
-  client.on('interactionCreate', async (interaction) => {
-    if (!interaction.isCommand()) {
-      return;
-    }
-
-    const command = client.commands.get(interaction.commandName);
-    if (!command) {
-      return;
-    }
-
-    try {
-      console.log(
-        `executing command "${command.data.name}" for user with tag "${interaction.user.tag}"`
-      );
-      await command.execute(interaction);
-    } catch (error) {
-      console.error(error);
-      await interaction.reply({
-        content: 'There was an error while executing this command!',
-        ephemeral: true,
-      });
-    }
-  });
-});
